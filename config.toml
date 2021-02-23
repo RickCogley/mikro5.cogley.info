@@ -1,0 +1,114 @@
+baseURL = "https://logr.cogley.info"
+defaultContentLanguage = "en"
+languageCode = "en-us"
+title = "Rick Cogley Logr"
+ignoreErrors = ["error-output-taxonomy"]
+
+copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License. Some rights reserved by James R. Cogley"
+enableGitInfo = "true"
+enableemoji = "true"
+paginate = 20
+pygmentsOptions = "linenos=table"
+pygmentsCodeFences = "true"
+pygmentsCodefencesGuessSyntax = "true"
+pygmentsStyle = "tango"
+
+theme = ["hugo-jf2"]
+
+# Note: This can also be set per language.
+# Every Page Kind without a definition here will be assigned the HTML output format.
+# Also note that the outputs section in Page front matter will override any setting in here.
+[outputs]
+  home = [ "HTML", "RSS", "JSON", "JF2Feed" ] # default = ["HTML", "RSS"]
+  # <domain>/jf2feed.json
+  section = ["HTML", "RSS", "JF2Feed"]  # default = ["HTML", "RSS"]
+  # <domain>/tags/mytag/jf2feed.json, <domain>/categories/mycat/jf2feed.json
+  taxonomy = ["HTML", "RSS", "JF2Feed"] # default = ["HTML", "RSS"]
+  # <domain>/posts/mypost/jf2post.json
+  page = ["HTML", "JF2Post"]   # default = ["HTML"]
+
+[permalinks]
+  posts = "/:year/:month/:day/:slug/"
+
+[taxonomies]
+  tag = "tags"
+
+[params]
+    description = "RC Logr is bite-sized technical micro posts from Rick Cogley."
+    keywords = "Cogley,Tech,Geek,Micropost,cli,terminal,technical"
+    # Used when a given page doesn't set its own.
+    defaultDescription = "A post by Rick Cogley"
+    defaultKeywords = "cogley,post"
+    thumbnail = "/img/rclive-logo.png"
+    ISO8601 = "2006-01-02T15:04:05JST"
+    googleAnalytics = ""
+    [params.style]
+       codeBgColor = "$washed-green"
+       textHilite = "$gold"
+    [Params.indieweb]
+       domain = "https://logr.cogley.info/" # must end with a slash
+       webring = "🚴🌶😧" # Get your IndieWeb Webring ID from https://xn--sr8hvo.ws
+       [Params.indieweb.webmention]
+          endpoint = "https://webmention.io/" # must end with a slash
+          account = "logr.cogley.info"
+
+
+[imaging]
+# Default resample filter used for resizing. Default is Box,
+# a simple and fast averaging filter appropriate for downscaling.
+# See https://github.com/disintegration/imaging
+
+resampleFilter = "box"
+
+# JPEG quality setting. Default is 75.
+quality = 80
+
+# Assets
+
+assetDir = "assets"
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.blackFriday]
+    angledQuotes = false
+    footnoteAnchorPrefix = ""
+    footnoteReturnLinkContents = ""
+    fractions = true
+    hrefTargetBlank = false
+    latexDashes = true
+    nofollowLinks = false
+    noreferrerLinks = false
+    plainIDAnchors = true
+    skipHTML = false
+    smartDashes = true
+    smartypants = true
+    smartypantsQuotesNBSP = false
+    taskLists = true
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.parser]
+      attribute = true
+      autoHeadingID = true
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true
+      xHTML = false
+  [markup.highlight]
+    codeFences = true
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "monokai"
+    tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 3
+    startLevel = 2

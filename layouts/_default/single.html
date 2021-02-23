@@ -1,0 +1,30 @@
+{{ define "header" }}
+  {{- partial "header.html" . -}}
+{{ end }}
+{{ define "main" }}
+
+  <main class="w-70 w-50-ns pb2 center">
+    <article class="h-entry entry f4">
+    <h1 class="ss09 one">{{ .Title }}</h1>
+    <h2 class="four">{{ .Date.Format "Monday, 2 Jan, 2006" }}</h2>
+    {{ $dt := .Date.Format "02 Jan 2006" }}
+    {{ range where $.Site.Data.holidays ".Date with Month Name" $dt }}
+    {{ with (index . "Name") }}
+    <span class="three bg-near-white br3 pa1">🗓 "<strong><i>{{ . }}</i></strong>" in Japan</span>
+    {{ end }}
+    {{ end }}
+    <p class="e-content f4" itemprop="articleBody"> {{- .Content -}}</p>
+    <a class="u-url url dn" href="{{ .Permalink }}"></a><span class="p-name dn" itemprop="name headline">{{ .Title }} - {{ .Content | plainify | truncate 30 }}</span></a>
+    <time class="dt-published dn">{{ .Date }}</time>
+    <span class="p-author dn">Rick Cogley</span>
+    </article>
+      <a class="f6 link dim br-pill ph3 pv2 mb4 dib white bg-one" href="/">Back to Home</a>
+      {{ $tweettext := printf "🚀 Useful Info on #logr: " }}
+      <a class="f6 link dim br-pill ph3 pv2 mb4 dib white bg-three" href='http://twitter.com/share?url={{ .Permalink }}&text={{ $tweettext | safeHTML }}&via=rickcogley'>Tweet Link</a>
+  </main>
+{{ end }}
+{{ define "footer" }}
+  {{- partial "footer.html" . -}}
+  {{- partial "bodyend.html" . -}}
+{{ end }}
+

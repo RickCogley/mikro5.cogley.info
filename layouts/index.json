@@ -1,0 +1,5 @@
+{{- $index := slice -}}
+{{- range where .Site.RegularPages "Type" "not in"  (slice "jf2feed" "json") -}}
+  {{- $index = $index | append (dict "title" .Title "ref" .Permalink "tags" .Params.tags "content" .Plain) -}}
+{{- end -}}
+{{- $index | jsonify -}}

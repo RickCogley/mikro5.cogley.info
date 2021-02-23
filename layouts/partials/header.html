@@ -1,0 +1,35 @@
+{{ "<!-- ENTERING partial header.html -->" | safeHTML }}
+<head>
+    <meta charset="utf-8">
+    <!-- can go in .HTACCESS!!  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>{{ .Title }}{{ if ne .Title .Site.Title }} : {{ .Site.Title }}{{ end }}</title>
+    <meta name="author" content="Rick Cogley">
+    <meta name="description" content="{{ if and (eq .Kind "taxonomy") (eq .Kind "taxonomyTerm") }}Content under '{{ .Title }}' at RC Live, short blog posts from Rick Cogley.{{ else }}{{- .Summary -}}{{ end }}">
+    <meta name="keywords" content="{{ if isset .Params "tags" }}{{ range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}{{ else }}{{.Site.Params.keywords}}{{ end }}">
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <link rel="canonical" href="{{ .Permalink }}">
+    <link rel="authorization_endpoint" href="https://indieauth.com/auth">
+    <link rel="webmention" href="https://webmention.io/logr.cogley.info/webmention" />
+    <link rel="pingback" href="https://webmention.io/logr.cogley.info/xmlrpc" />
+    {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+    <!-- Hugo info -->
+    {{ printf "<!--Hugo Build Date: %s-->" hugo.BuildDate | safeHTML }}
+    {{ printf "<!--Hugo Commit Hash: %s-->" hugo.CommitHash | safeHTML }}
+    {{ hugo.Generator }}
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <!-- <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed:200,200i,400,400i,700&amp;subset=latin-ext" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,200;0,400;0,600;1,200;1,400&display=swap" rel="stylesheet">
+    {{ $styles := resources.Get "rc-main.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS | postCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}">
+
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js"></script> -->
+
+  </head>
+{{ "<!-- LEAVING partial header.html -->" | safeHTML }}

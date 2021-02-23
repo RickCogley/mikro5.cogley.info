@@ -1,0 +1,12 @@
+{{ "<!-- ENTERING partial bodyend.html -->" | safeHTML }}
+<!-- GOOGLE ANALYTICS -->
+{{ if not .Site.BuildDrafts }}
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://scallop.esolia.pro/script.js" site="EWNTLGEZ" defer></script>
+<!-- / Fathom -->
+{{ end }}
+
+{{ "<!-- LEAVING partial bodyend.html -->" | safeHTML }}
+{{ if .Site.BuildDrafts }}
+{{ "<!-- N.B. the livereload.js script is being injected by hugo server -->" | safeHTML }}
+{{ end }}

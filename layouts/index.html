@@ -1,0 +1,49 @@
+{{ define "header" }}
+  {{- partial "header.html" . -}}
+{{ end }}
+{{ define "main" }}
+<div class="">
+  <main class="w-70 w-50-ns center bg-white">
+    <h1 class="one">Welcome</h1>
+    <div class="pb2 f4">{{ .Content }}</div>
+      {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+        {{ partial "pagination.html" . }}
+        <section class="mw7 center">
+        {{ range ($paginator.Pages.GroupByDate "02 Jan 2006") }}
+          <div class="db pv2 ph3 ph0-l black">
+            <div class="flex flex-column flex-row-ns bt b--black-10">
+              <div class="pr3-ns mb4 mb0-ns w-100 w-20-ns">
+                <h3 class="gray f4">{{ .Key }}</h3>
+                {{ $dt := .Key }}
+                {{ range where $.Site.Data.holidays ".Date with Month Name" $dt }}
+                {{ with (index . "Name") }}
+                <p class="three bg-near-white br3">🗓 "<strong><i>{{ . }}</i></strong>" in Japan</p>
+                {{ end }}
+                {{ end }}
+              </div>
+              <div class="w-100 w-80-ns pl3-ns f4">
+              {{ range .Pages }}
+
+              <article class="h-entry entry">
+                <p class="f4"><a class="link dim two b u-url url" href="{{ .Permalink }}">&laquo;{{ .Date.Format "15:04:05" }}&raquo;</a></p><p class="e-content" itemprop="articleBody"> {{- .Content -}}</p>
+                <span class="p-name dn" itemprop="name headline">{{ .Title }} - {{ .Content | plainify | truncate 30 }}</span>
+                <time class="dt-published dn">{{ .Date }}</time>
+                <span class="p-author dn">Rick Cogley</span>
+              </article>
+
+              {{ end }}
+              </div>
+            </div>
+          </div>
+        {{ end }}
+        </section>
+        {{ partial "pagination.html" . }}
+
+  </main>
+</div>
+{{ end }}
+{{ define "footer" }}
+ {{- partial "footer.html" . -}}
+ {{- partial "bodyend.html" . -}}
+{{ end }}
+
